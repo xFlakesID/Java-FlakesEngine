@@ -102,6 +102,10 @@ private static final long serialVersionUID = 1L;
 	}
 	public void tick(){
 		tickCount++;
+		
+		for(int i=0; i<pixels.length; i++){
+			pixels[i] = i * tickCount;
+		}
 	}
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
@@ -113,6 +117,8 @@ private static final long serialVersionUID = 1L;
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		g.drawImage(image, 0 ,0, getWidth(), getHeight(), null);
 		
 		g.dispose();
 		bs.show();
