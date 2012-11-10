@@ -19,14 +19,14 @@ private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 160;
 	public static final int HEIGHT = WIDTH/12*9;
 	public static final int SCALE = 3;
-	public static final String NAME = "Flakes Engine 0.0.1b";
+	public static final String NAME = "Flakes Engine 0.0.2a";
 	public boolean running = false;
 	public int tickCount = 0;
 	
 	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	
-	private SpriteSheet spriteSheet = new SpriteSheet("SpriteSheet.png");
+	private SpriteSheet spriteSheet = new SpriteSheet("/SpriteSheet.png");
 	private JFrame frame;
 	
 	public Game(){
