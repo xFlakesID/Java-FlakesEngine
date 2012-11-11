@@ -8,9 +8,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
 import javax.swing.JFrame;
 
-//import FlakesEngineGraphics
+import flakes.engine.org.gfx.Screen;
 import flakes.engine.org.gfx.SpriteSheet;
 
 public class Game extends Canvas implements Runnable{
@@ -26,7 +27,7 @@ private static final long serialVersionUID = 1L;
 	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	
-	private SpriteSheet spriteSheet = new SpriteSheet("/SpriteSheet.png");
+	private Screen screen;
 	private JFrame frame;
 	
 	public Game(){
@@ -51,7 +52,9 @@ private static final long serialVersionUID = 1L;
 	public static void main (String[] args) {
 		new Game().start();
 	}
-
+	public void init(){
+		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/SpriteSheet.png"));
+	}
 
 	public synchronized void start() {
 			running = true;
@@ -64,12 +67,16 @@ private static final long serialVersionUID = 1L;
 	public void run() {
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D/60D;
+		
 		int frames = 0;
 		int ticks = 0;
 		
-		
 		long lasTimer = System.currentTimeMillis();
 		double delta = 0;
+		
+		init();
+		
+		
 		while(running){
 			long now = System.nanoTime();
 			delta+=(now - lastTime) /nsPerTick;
@@ -106,9 +113,9 @@ private static final long serialVersionUID = 1L;
 	public void tick(){
 		tickCount++;
 		
-		for(int i=0; i<pixels.length; i++){
-			pixels[i] = i * tickCount;
-		}
+	
+		
+		
 	}
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
@@ -116,6 +123,8 @@ private static final long serialVersionUID = 1L;
 			createBufferStrategy(3);
 			return;
 		}
+		
+		screen.render(pixels, 0, WIDTH);
 		
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.BLACK);
