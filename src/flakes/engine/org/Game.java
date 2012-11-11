@@ -28,6 +28,7 @@ private static final long serialVersionUID = 1L;
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	
 	private Screen screen;
+	public InputHandler input;
 	private JFrame frame;
 	
 	public Game(){
@@ -54,6 +55,7 @@ private static final long serialVersionUID = 1L;
 	}
 	public void init(){
 		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/SpriteSheet.png"));
+		input = new InputHandler(this);
 	}
 
 	public synchronized void start() {
@@ -112,11 +114,24 @@ private static final long serialVersionUID = 1L;
 	}
 	public void tick(){
 		tickCount++;
-		
+		if(input.up.isPressed()){
+			screen.yOffset--;
+		}
+		if(input.down.isPressed()){
+			screen.yOffset++;
+		}
+		if(input.left.isPressed()){
+			screen.xOffset--;
+		}
+		if(input.right.isPressed()){
+			screen.xOffset++;
+		}
+			
+		}
 	
 		
 		
-	}
+	
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null){
