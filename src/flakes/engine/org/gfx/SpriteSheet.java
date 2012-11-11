@@ -17,7 +17,9 @@ public class SpriteSheet {
 		BufferedImage image = null ;
 		
 		try {
+			
 			image = ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
+		
 		} catch (IOException e) {
 		
 			e.printStackTrace();
